@@ -1,5 +1,7 @@
 # AI Study Assistant
 
+[![CI](https://github.com/uufy13/ai-study-assistant/actions/workflows/test.yml/badge.svg)](https://github.com/uufy13/ai-study-assistant/actions)
+
 本地运行的 AI 学习资料整理工具——读取 Markdown/TXT 资料，调用大语言模型，自动生成结构化学习笔记。
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
