@@ -1,0 +1,42 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# === uv ===
+.uv/
+
+# === 环境变量与密钥（绝不能入库） ===
+.env
+
+# === 测试与缓存 ===
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# === IDE / 编辑器 ===
+.idea/
+.vscode/
+*.swp
+
+# === 学习资料与输出（个人/版权敏感，不入库） ===
+data/
+output/
+
+# === 日志 ===
+*.log
+debug.log
+
+# === DSH 会话内部数据（非项目内容） ===
+_prev_session/
+
+# === 系统文件 ===
+Thumbs.db
+.DS_Store

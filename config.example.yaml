@@ -1,0 +1,28 @@
+# 模型配置模板
+# 使用方法：复制本文件为 config.yaml，按需修改。
+#
+# 设计目标：切换厂商只改这个文件（或 .env），不改任何代码。
+# ${VAR} 表示从环境变量（.env）读取。
+
+provider: openai              # 当前使用的厂商 preset 名称
+
+llm:
+  base_url: ${OPENAI_BASE_URL}
+  api_key: ${OPENAI_API_KEY}   # 也可直接填字符串，但推荐走 .env
+  model: ${OPENAI_MODEL}
+  temperature: 0.3
+
+# 未来扩展：多厂商 preset 示例（Phase 2+ 实现切换 UI 时启用）
+# providers:
+#   openai:
+#     base_url: https://api.openai.com/v1
+#     model: gpt-4o-mini
+#   deepseek:
+#     base_url: https://api.deepseek.com/v1
+#     model: deepseek-chat
+#   kimi:
+#     base_url: https://api.moonshot.cn/v1
+#     model: moonshot-v1-8k
+#   ollama:
+#     base_url: http://localhost:11434/v1
+#     model: qwen2.5
