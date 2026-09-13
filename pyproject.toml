@@ -3,6 +3,10 @@ name = "ai-study-assistant"
 version = "0.1.0"
 description = "本地运行的 AI 学习资料整理工具"
 readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "uufy13", email = "zhoushurenapple@proton.me" },
+]
 requires-python = ">=3.11"
 dependencies = [
     "openai>=1.0.0",

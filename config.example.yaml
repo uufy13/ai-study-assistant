@@ -1,28 +1,43 @@
-# 模型配置模板
+# AI Study Assistant 配置模板
 # 使用方法：复制本文件为 config.yaml，按需修改。
 #
-# 设计目标：切换厂商只改这个文件（或 .env），不改任何代码。
-# ${VAR} 表示从环境变量（.env）读取。
+# 切换厂商只需改 provider 名，无需改任何代码：
+#   provider: openai | deepseek | kimi | qwen | ollama
+#
+# 密钥通过「环境变量名」(api_key_env) 从 .env 读取，
+# 本文件不写任何真实密钥，也无需出现 api_key 字段。
 
-provider: openai              # 当前使用的厂商 preset 名称
+provider: openai          # 默认厂商（对应内置 preset 名）
 
-llm:
-  base_url: ${OPENAI_BASE_URL}
-  api_key: ${OPENAI_API_KEY}   # 也可直接填字符串，但推荐走 .env
-  model: ${OPENAI_MODEL}
-  temperature: 0.3
+llm:                      # 全局生成参数（所有厂商共用）
+  temperature: 0.3        # 采样温度
+  max_tokens: null        # 最大输出 token；null = 不限制（用模型默认）
 
-# 未来扩展：多厂商 preset 示例（Phase 2+ 实现切换 UI 时启用）
+# ---------------------------------------------------------------
+# providers：可选。用于「覆盖」内置 preset，或「新增」自定义厂商。
+# 每个条目字段：
+#   base_url    —— 服务地址（OpenAI 兼容端点）
+#   model       —— 模型名
+#   api_key_env —— 密钥所在的环境变量【名】（不是密钥字面量）
+# 优先级：providers 里的同名条目 > 内置 preset。
+# ---------------------------------------------------------------
+# 内置 preset 参考（无需复制，仅供覆盖时参考）：
+#   deepseek   https://api.deepseek.com/v1                          model=deepseek-chat    api_key_env=DEEPSEEK_API_KEY
+#   kimi       https://api.moonshot.cn/v1                           model=moonshot-v1-8k   api_key_env=KIMI_API_KEY
+#   qwen       https://dashscope.aliyuncs.com/compatible-mode/v1    model=qwen-plus        api_key_env=QWEN_API_KEY
+#   openai     https://api.openai.com/v1                            model=gpt-4o-mini      api_key_env=OPENAI_API_KEY
+#   ollama     http://localhost:11434/v1                            model=qwen2.5          api_key_env=null（本地无需 key）
+#
+# 覆盖示例（把 kimi 的模型换成 32k 长上下文版本）：
 # providers:
-#   openai:
-#     base_url: https://api.openai.com/v1
-#     model: gpt-4o-mini
-#   deepseek:
-#     base_url: https://api.deepseek.com/v1
-#     model: deepseek-chat
 #   kimi:
 #     base_url: https://api.moonshot.cn/v1
-#     model: moonshot-v1-8k
-#   ollama:
-#     base_url: http://localhost:11434/v1
-#     model: qwen2.5
+#     model: moonshot-v1-32k
+#     api_key_env: KIMI_API_KEY
+#
+# 自定义厂商示例（任一 OpenAI 兼容服务）：
+# providers:
+#   my-vendor:
+#     base_url: https://your-vendor.com/v1
+#     model: your-model
+#     api_key_env: MY_VENDOR_API_KEY
