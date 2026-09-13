@@ -11,6 +11,9 @@ dependencies = [
     "python-dotenv>=1.0",
 ]
 
+[project.scripts]
+ai-study-assistant = "ai_study_assistant.cli:main"
+
 [dependency-groups]
 dev = [
     "pytest>=8.0",
