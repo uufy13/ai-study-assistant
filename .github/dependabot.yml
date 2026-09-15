@@ -1,0 +1,12 @@
+# AI Study Assistant — Dependabot 配置（v0.2.0 Security Gate P4）
+# 每周检查 uv.lock 依赖更新，以 PR 形式提出（不自动合并、不修改业务代码）。
+
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"

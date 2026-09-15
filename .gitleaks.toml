@@ -1,0 +1,31 @@
+# AI Study Assistant — gitleaks 配置（v0.2.0 Security Gate P1）
+# 基于 gitleaks 内置默认规则集（useDefault = true），仅叠加「项目精确 allowlist」。
+# 原则：只豁免已知的虚构/占位符值；绝不豁免高熵字符串、真实 token 或私钥格式。
+
+title = "AI Study Assistant gitleaks config"
+
+# 使用 gitleaks 内置默认规则集（generic-api-key / private-key / 各厂商 token 等）
+[extend]
+useDefault = true
+
+[allowlist]
+description = "已知假 key / 占位符（.env.example 与 tests 中的虚构低熵值）"
+
+# stopwords：命中内容包含下列任一（大小写不敏感）时视为误报并放行。
+# 这些均为「sk- + 厂商名」或占位符，熵极低、非随机，非真实凭据。
+# 仅覆盖精确值，不使用路径/正则豁免，避免遮蔽真实泄露。
+stopwords = [
+    # .env.example 占位符
+    "sk-your-key-here",
+    "your-api-key",
+    "your-key-here",
+    # tests/test_config.py 中的假 key
+    "sk-deepseek",
+    "sk-kimi",
+    "sk-qwen",
+    "sk-gateway",
+    "sk-openai",
+    "sk-from-envfile",
+    # tests/test_llm.py 中的假 key
+    "factory-key",
+]

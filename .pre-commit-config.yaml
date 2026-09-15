@@ -1,0 +1,15 @@
+# AI Study Assistant — pre-commit 配置（v0.2.0 Security Gate P2）
+# 本地 gitleaks hook：commit 时对 staged 文件做敏感信息扫描。
+# 依赖本机已安装 gitleaks（见 README）；使用项目根目录的 .gitleaks.toml。
+
+repos:
+  - repo: local
+    hooks:
+      - id: gitleaks
+        name: gitleaks
+        description: 检测 staged 文件中的硬编码敏感信息
+        entry: gitleaks protect --staged --config .gitleaks.toml
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]

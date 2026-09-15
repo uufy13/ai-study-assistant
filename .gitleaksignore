@@ -1,0 +1,6 @@
+# gitleaks 误报指纹抑制文件（fingerprint allowlist）
+# 每行一个 gitleaks 命中的指纹（Fingerprint），该命中将被永久忽略。
+#
+# 当前仓库全历史 + 工作树扫描无任何误报，本文件暂为空（仅作机制预留）。
+# 未来若出现无法用 .gitleaks.toml 停用词消除的「确认误报」，
+# 用 `gitleaks detect -v` 输出中的 Fingerprint 值逐行追加到下方。
