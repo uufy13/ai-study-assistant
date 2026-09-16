@@ -59,7 +59,9 @@ def run_pipeline(input_path, output_dir, *, provider=None, config_path=None, cli
 
 ## 4. 配置加载
 
-- API Key 读取：完全由 config 处理——load_config() 内部 load_dotenv(override=True) 读 .env，key 经 api_key_env 间接读取。CLI 不直接接触 key。
+- API Key 读取：完全由 config 处理——load_config() 内部 load_dotenv(dotenv_path=env_file, override=False) 读 .env，key 经 api_key_env 间接读取。CLI 不直接接触 key。
+- 环境变量优先级：override=False 表示「已存在的环境变量优先于 .env」——进程环境中已设置的同名变量（如 DEEPSEEK_API_KEY）不会被 .env 覆盖，.env 仅补充未设置的值。
+- .env 解析位置：未显式指定时，.env 位于「解析后的 config 文件同目录」（cfg_file.parent / ".env"）；默认 config 为 cwd 下的 config.yaml 时即 cwd 下的 .env；使用 --config path/to/custom.yaml 时则在 path/to/ 目录下查找 .env。
 - config 加载：load_config(config_path)，--config 传入时用该路径，否则用默认。
 - CLI 覆盖配置：仅两处——--provider 覆盖默认 provider；--config 覆盖配置文件路径。其余走配置文件。
 
