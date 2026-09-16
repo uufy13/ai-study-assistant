@@ -1,6 +1,6 @@
 [project]
 name = "ai-study-assistant"
-version = "0.1.0"
+version = "0.2.0"
 description = "本地运行的 AI 学习资料整理工具"
 readme = "README.md"
 license = "MIT"
@@ -13,6 +13,9 @@ dependencies = [
     "pyyaml>=6.0",
     "pydantic>=2.0",
     "python-dotenv>=1.0",
+    "python-docx>=1.2.0",
+    "pymupdf>=1.28.2",
+    "python-pptx>=1.0.2",
 ]
 
 [project.scripts]

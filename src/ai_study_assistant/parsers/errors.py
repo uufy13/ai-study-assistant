@@ -15,3 +15,15 @@ class FileReadError(ParserError):
 
 class DecodeError(ParserError):
     """文件解码失败（非 UTF-8）。"""
+
+
+class InvalidDocumentError(ParserError):
+    """文档损坏或无法解析（DOCX/PDF/PPTX）。"""
+
+
+class PasswordProtectedError(ParserError):
+    """文档受密码保护，需要密码才能打开。"""
+
+
+class UnsupportedFeatureError(ParserError):
+    """遇到 v0.2.0 暂不支持的特性。"""
