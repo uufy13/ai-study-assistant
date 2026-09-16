@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 from .models import AppConfig
 
 DEFAULT_CONFIG_PATH = Path("config.yaml")
-DEFAULT_ENV_PATH = Path(".env")
 
 
 def load_config(config_path: str | os.PathLike[str] | None = None,
@@ -18,7 +17,8 @@ def load_config(config_path: str | os.PathLike[str] | None = None,
     """Load application configuration.
 
     Steps:
-    1. Load ``.env`` if it exists (``env_path`` or ``.env`` in cwd).
+    1. Load ``.env`` if it exists (``env_path``, or ``.env`` next to the
+       resolved config file).
     2. Load ``config.yaml`` if it exists (``config_path`` or ``config.yaml`` in cwd).
     3. Merge with builtin presets and validate via ``AppConfig``.
 
@@ -29,11 +29,11 @@ def load_config(config_path: str | os.PathLike[str] | None = None,
     Returns:
         A validated and fully merged ``AppConfig``.
     """
-    env_file = Path(env_path) if env_path is not None else DEFAULT_ENV_PATH
-    if env_file.is_file():
-        load_dotenv(dotenv_path=env_file, override=True)
-
     cfg_file = Path(config_path) if config_path is not None else DEFAULT_CONFIG_PATH
+
+    env_file = Path(env_path) if env_path is not None else cfg_file.parent / ".env"
+    if env_file.is_file():
+        load_dotenv(dotenv_path=env_file, override=False)
     raw: dict[str, Any] = {}
     if cfg_file.is_file():
         with cfg_file.open("r", encoding="utf-8") as f:
