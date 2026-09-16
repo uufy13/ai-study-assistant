@@ -68,3 +68,6 @@ _prev_session/
 # === 系统文件 ===
 Thumbs.db
 .DS_Store
+
+# === gitleaks 临时解压目录（仅本机扫描用，绝不入库） ===
+.gitleaks/
